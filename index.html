@@ -8,7 +8,22 @@
     <meta name="description" content="个人学术主页">
     <meta name="keywords" content="个人, 学术, 研究">
     <meta name="author" content="你的名字">
-</head>
+    <style>
+        .avatar-control { position:relative; width:280px; height:280px; border-radius:50%; overflow:hidden; display:block; margin:0 auto; cursor:pointer; }
+        .avatar-control img { width:100%; height:100%; object-fit:cover; display:block; animation:avatar-spin 30s linear infinite; animation-play-state:paused; }
+        .avatar-control.is-playing img { animation-play-state:running; }
+        .avatar-play-indicator { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#fff; font-size:42px; font-weight:bold; text-shadow:0 2px 5px #000; background:rgba(0,0,0,0); opacity:0; transition:opacity .2s, background .2s; }
+        .avatar-control:hover .avatar-play-indicator, .avatar-control:focus-visible .avatar-play-indicator { opacity:1; background:rgba(0,0,0,.28); }
+        @keyframes avatar-spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+        .avatar-control .avatar-alt { position:absolute; inset:0; opacity:0; z-index:1; }
+        .avatar-control.is-playing .avatar-alt { animation:avatar-spin 30s linear infinite, avatar-raise 30s linear infinite; animation-play-state:running, running; }
+        @keyframes avatar-raise { 0%,45% { opacity:0; } 50%,95% { opacity:1; } 100% { opacity:0; } }
+
+    </style>    <style>
+        .publication-slideshow { position:relative; width:100%; aspect-ratio:16 / 9; background:#111; overflow:hidden; }
+        .publication-slide { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:0; transition:opacity .7s ease-in-out; }
+        .publication-slide.is-active { opacity:1; }
+    </style></head>
 <body>
     <div class="container">
         <div class="content">
@@ -24,22 +39,35 @@
                                                 <img src="images/logo-cn.png" alt="Yanbang Li Chinese Name" style="height:150px; margin-right:20px;">
                                                 <img src="images/logo-en.png" alt="Yanbang Li English Name" style="height:150px;">
                                             </p>
-                                            <p>Hello, I am currently researching at Tsinghua University(IIIS), advised by <a href="https://www.mengdixu.me/">Prof. Mengdi Xu</a>. Previously, I worked at the EIL Lab at <a href="https://usa.united-imaging.com/">United Imaging Healthcare</a>. I hold a Master's degree from the Dyson School of Design Engineering at <a href="https://www.imperial.ac.uk/design-engineering/">Imperial College London</a>, and I am also an artist and designer with a Master of Arts from the <a href="https://www.rca.ac.uk/">Royal College of Art (RCA)</a>. My research interests include robot learning, human-robot interaction, world modeling, and AI for creativity. In addition to my research, I am teaching young designers in Shanghai how to create with human-centered artificial intelligence. In my view, AI is a science that rethinks how the world fundamentally works. <strong>And that's why I like it.</strong>
+                                            <p>Hello, I am currently researching at Tsinghua University(IIIS), advised by <a href="https://www.mengdixu.me/">Prof. Mengdi Xu</a>. Previously, I worked at the EIL Lab at <a href="https://usa.united-imaging.com/">United Imaging Healthcare</a>. I hold a Master's degree from the Dyson School of Design Engineering at <a href="https://www.imperial.ac.uk/design-engineering/">Imperial College London</a>, and I am also an artist and designer with a Master of Arts from the <a href="https://www.rca.ac.uk/">Royal College of Art (RCA)</a>. My research interests include robot learning, agentic hierarchical control, human-robot interaction, and AI for creativity. In my view, AI is a science that rethinks how the world fundamentally works. That&#39;s why I explore it.
                                             </p>
-                                            <p>
-                                                
+                                            <div style="margin-top:18px;">
+                                                <p style="margin:0 0 10px;">My future research will focus on the following directions:</p>
+                                                <ol style="margin:0; padding-left:24px;">
+                                                    <li style="margin-bottom:10px;"><strong>Human-Centered Robotics</strong><br>
+                                                        Developing interactive robotic systems that meaningfully collaborate with people, as well as exploring new forms of robotic art and creative expression that have not previously existed in human society.
+                                                    </li>
+                                                    <li style="margin-bottom:10px;"><strong>Efficient Physical AI</strong><br>
+                                                        Building AI systems that understand space and time, predict motion, force, and acceleration, and execute actions through high-speed closed-loop control under the high-level planning of advanced foundation models.
+                                                    </li>
+                                                    <li><strong>Practical Applications of Embodied AI</strong><br>
+                                                        Developing AI-enhanced robotic systems for agriculture, construction, and manufacturing that can replace humans in hazardous or highly repetitive tasks and solve practical problems in specific real-world industries.
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                            <p style="margin-top:12px; color:#555; font-style:italic;">
+                                                I am currently seeking a PhD position. If you are interested in my work, please contact me.
                                             </p>
                                             <p style="text-align:center">
-                                                <a href="mailto:liyanbang0077@gmail.com">Email</a> &nbsp;/&nbsp;
-                                                <a href="images/wechat.jpg" target="_blank">WeChat</a>
+                                                <a href="mailto:liyanbang0077@gmail.com">Email</a>
                                             </p>
                                         </td>
                                         <td style="padding:2.5%;width:40%;max-width:40%">
-                                            <a href="images/profile1.png">
-                                                <div style="width:280px;height:280px;border-radius:50%;overflow:hidden;display:block;margin:0 auto;">
-                                                    <img alt="profile photo" src="images/touxiang.png" style="width:100%;height:100%;object-fit:cover;display:block;">
-                                                </div>
-                                            </a>
+                                            <div id="avatar-control" class="avatar-control" role="button" tabindex="0" aria-label="播放或暂停背景音乐">
+                                                <img alt="profile photo" src="images/touxiang.png">
+                                                <img class="avatar-alt" alt="profile photo with both arms raised" src="images/touxiang-arms-up.png">
+                                                <span class="avatar-play-indicator" aria-hidden="true">Ⅱ</span>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -56,6 +84,33 @@
                             </table>
                             
                             <div style="position:relative; margin-bottom:40px;">
+                                <div style="position:relative; display:inline-block; width:380px; background:white; border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,0.1); overflow:hidden; margin-right:20px;">
+                                                                        <div class="publication-slideshow" aria-label="Robotic Spatiotemporal Editing figures">
+                                        <img class="publication-slide is-active" src="images/robotic-spatiotemporal-editing-1.png" alt="Robotic Spatiotemporal Editing figure 1">
+                                        <img class="publication-slide" src="images/robotic-spatiotemporal-editing-2.png" alt="Robotic Spatiotemporal Editing figure 2">
+                                        <img class="publication-slide" src="images/robotic-spatiotemporal-editing-3.png" alt="Robotic Spatiotemporal Editing figure 3">
+                                        <video class="publication-slide" src="images/cupleft0504.mp4" muted playsinline preload="metadata" aria-label="Robotic Spatiotemporal Editing video"></video>
+                                        <video class="publication-slide" src="images/cd7f9d542a172f9b56defffae6eed464_raw.mp4" muted playsinline preload="metadata" aria-label="Robotic Spatiotemporal Editing follow-up video"></video>
+                                    </div>
+                                </div>
+                                
+                                <div style="display:inline-block; width:calc(100% - 420px); vertical-align:top;">
+                                    <h2 style="color:#2980b9; margin-top:0; margin-bottom:12px; font-size:24px;">Robotic Spatiotemporal Editing</h2>
+                                    
+                                    <p style="margin-bottom:8px;">
+                                        <strong>Yanbang Li<sup>*</sup></strong>, Bu He<sup>*</sup>, Yi Tian, Yu-Chiao Huang, Chenyu Zhang, Ruoqiu Chen, Yuanzhe Liu, Yuxiang Gao, Mengdi Xu<sup>†</sup>
+                                    </p>
+                                    
+                                    <p style="margin-bottom:15px; font-style:italic; color:#666;">
+                                        Under review, 2026
+                                    </p>
+                                    
+                                    <p style="margin-bottom:15px;">
+                                        Our method extends existing generative policies with a new capability: beyond simply completing tasks, they can now be precisely controlled in both space and time.
+                                    </p>
+                                </div>
+                            </div>
+                                                        <div style="position:relative; margin-bottom:40px;">
                                 <div style="position:relative; display:inline-block; width:380px; background:white; border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,0.1); overflow:hidden; margin-right:20px;">
                                     <img src="images/rovi.gif" alt="project image" style="width:100%; display:block;">
                                 </div>
@@ -95,7 +150,26 @@
                             
                             <div style="position:relative; margin-bottom:40px;">
                                 <div style="position:relative; display:inline-block; width:380px; background:white; border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,0.1); overflow:hidden; margin-right:20px;">
-                                    <iframe width="380" height="215" src="https://www.youtube.com/embed/hkbea4mz7hM" title="Papersenses Project" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display:block;"></iframe>
+                                    <div id="papersenses-player">
+                                        <a href="https://www.youtube.com/watch?v=hkbea4mz7hM" target="_blank" rel="noopener" style="display:block; position:relative; background:#111; color:white; text-align:center; text-decoration:none;">
+                                            <img src="https://i.ytimg.com/vi/hkbea4mz7hM/hqdefault.jpg" alt="Papersenses video preview" width="380" height="215" style="display:block; width:100%; object-fit:cover;">
+                                            <span style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.25);">&#9654; Watch on YouTube</span>
+                                        </a>
+                                    </div>
+                                    <script>
+                                        if (location.protocol === 'https:' || location.protocol === 'http:') {
+                                            const player = document.createElement('iframe');
+                                            player.width = '380';
+                                            player.height = '215';
+                                            player.src = 'https://www.youtube.com/embed/hkbea4mz7hM?playsinline=1';
+                                            player.title = 'Papersenses Project';
+                                            player.referrerPolicy = 'strict-origin-when-cross-origin';
+                                            player.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+                                            player.allowFullscreen = true;
+                                            player.style.cssText = 'display:block; width:100%; border:0;';
+                                            document.getElementById('papersenses-player').replaceChildren(player);
+                                        }
+                                    </script>
                                 </div>
                                 
                                 <div style="display:inline-block; width:calc(100% - 420px); vertical-align:top;">
@@ -107,7 +181,7 @@
                                     
                                     <div>
                                         <a href="papersenses.html" style="display:inline-block; padding:8px 20px; margin-right:10px; background-color:#fff; border:1px solid #333; text-decoration:none; color:#333; border-radius:4px; font-weight:bold;">More Detail</a>
-                                        <a href="https://video.example.com" style="display:inline-block; padding:8px 20px; background-color:#fff; border:1px solid #333; text-decoration:none; color:#333; border-radius:4px; font-weight:bold;">Video</a>
+                                        <a href="https://www.youtube.com/watch?v=hkbea4mz7hM" target="_blank" rel="noopener" style="display:inline-block; padding:8px 20px; background-color:#fff; border:1px solid #333; text-decoration:none; color:#333; border-radius:4px; font-weight:bold;">Video</a>
                                     </div>
                                 </div>
                             </div>
@@ -197,5 +271,95 @@
             </table>
         </div>
     </div>
-</body>
+    <audio id="background-music" src="audio/background-music.wav" autoplay loop preload="auto" playsinline muted></audio>
+    <script>
+        (function () {
+            const audio = document.getElementById('background-music');
+            const avatar = document.getElementById('avatar-control');
+            const indicator = avatar.querySelector('.avatar-play-indicator');
+            audio.muted = true;
+            audio.volume = 0;
+            function updateState(playing) {
+                avatar.classList.toggle('is-playing', playing);
+                indicator.textContent = playing ? 'Ⅱ' : '▶';
+                const label = playing ? '暂停背景音乐' : '点击播放背景音乐';
+                avatar.setAttribute('aria-label', label);
+                avatar.title = label;
+            }
+            function stopAutoStart() {
+                document.removeEventListener('click', startOnInteraction);
+            }
+            async function playMusic() {
+                try {
+                    await audio.play();
+                    stopAutoStart();
+                } catch (error) {
+                    updateState(true);
+                    avatar.title = audio.error ? '音乐加载失败，请刷新页面重试' : '点击头像播放背景音乐';
+                    console.warn('Background music could not start:', error);
+                }
+            }
+            function toggleMusic() {
+                stopAutoStart();
+                if (audio.paused) { playMusic(); } else { audio.pause(); }
+            }
+            function startOnInteraction(event) {
+                if (avatar.contains(event.target)) return;
+                stopAutoStart();
+                playMusic();
+            }
+            avatar.addEventListener('click', toggleMusic);
+            avatar.addEventListener('keydown', function (event) {
+                if ((event.key === 'Enter' || event.key === ' ') && !event.repeat) {
+                    event.preventDefault();
+                    toggleMusic();
+                }
+            });
+            audio.addEventListener('playing', function () { updateState(true); });
+            audio.addEventListener('pause', function () { updateState(false); });
+            audio.addEventListener('waiting', function () { updateState(false); });
+            audio.addEventListener('error', function () {
+                updateState(false);
+                avatar.title = '音乐加载失败，请刷新页面重试';
+            });
+            document.addEventListener('click', startOnInteraction);
+            updateState(true);
+            playMusic();
+        }());
+    </script>    <script>
+        (function () {
+            const slides = Array.from(document.querySelectorAll('.publication-slide'));
+            if (slides.length < 2) return;
+            let index = 0;
+            function showSlide(next) {
+                const current = slides[index];
+                current.classList.remove('is-active');
+                if (current.tagName === 'VIDEO') { current.pause(); current.currentTime = 0; }
+                index = next;
+                const active = slides[index];
+                active.classList.add('is-active');
+                if (active.tagName === 'VIDEO') {
+                    active.currentTime = 0;
+                    active.play().catch(function () {});
+                    active.onended = function () { showSlide((index + 1) % slides.length); };
+                }
+            }
+            window.setInterval(function () {
+                if (slides[index].tagName === 'VIDEO') return;
+                showSlide((index + 1) % slides.length);
+            }, 3000);
+        }());
+    </script></body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
