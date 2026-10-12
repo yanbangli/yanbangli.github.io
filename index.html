@@ -19,6 +19,15 @@
         .avatar-control.is-playing .avatar-alt { animation:avatar-spin 30s linear infinite, avatar-raise 30s linear infinite; animation-play-state:running, running; }
         @keyframes avatar-raise { 0%,45% { opacity:0; } 50%,95% { opacity:1; } 100% { opacity:0; } }
 
+    </style>
+    <style>
+        .intro-row { display:flex; align-items:flex-start; gap:32px; }
+        .intro-row > p { flex:1; margin-bottom:15px; }
+        .intro-row .avatar-control { flex:0 0 280px; margin:0; }
+        @media only screen and (max-width: 800px) {
+            .intro-row { display:block; }
+            .intro-row .avatar-control { margin:20px auto 0; }
+        }
     </style>    <style>
         .publication-slideshow { position:relative; width:100%; aspect-ratio:16 / 9; background:#111; overflow:hidden; }
         .publication-slide { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:0; transition:opacity .7s ease-in-out; }
@@ -34,13 +43,28 @@
                             <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
                                 <tbody>
                                     <tr style="padding:0px">
-                                        <td style="padding:2.5%;width:63%;vertical-align:middle">
+                                        <td style="padding:2.5%;width:100%;vertical-align:top">
                                             <p style="text-align:center; display:flex; justify-content:center; align-items:flex-end;">
                                                 <img src="images/logo-cn.png" alt="Yanbang Li Chinese Name" style="height:150px; margin-right:20px;">
                                                 <img src="images/logo-en.png" alt="Yanbang Li English Name" style="height:150px;">
                                             </p>
+                                            <div class="intro-row">
+
                                             <p>Hello, I am currently researching at Tsinghua University(IIIS), advised by <a href="https://www.mengdixu.me/">Prof. Mengdi Xu</a>. Previously, I worked at the EIL Lab at <a href="https://usa.united-imaging.com/">United Imaging Healthcare</a>. I hold a Master's degree from the Dyson School of Design Engineering at <a href="https://www.imperial.ac.uk/design-engineering/">Imperial College London</a>, and I am also an artist and designer with a Master of Arts from the <a href="https://www.rca.ac.uk/">Royal College of Art (RCA)</a>. My research interests include robot learning, agentic hierarchical control, human-robot interaction, and AI for creativity. In my view, AI is a science that rethinks how the world fundamentally works. That&#39;s why I explore it.
                                             </p>
+
+
+                                            <div id="avatar-control" class="avatar-control" role="button" tabindex="0" aria-label="Play or pause background music">
+
+                                                <img alt="profile photo" src="images/touxiang.png">
+
+                                                <img class="avatar-alt" alt="profile photo with both arms raised" src="images/touxiang-arms-up.png">
+
+                                                <span class="avatar-play-indicator" aria-hidden="true">&#x2161;</span>
+
+                                            </div>
+
+                                            </div>
                                             <div style="margin-top:18px;">
                                                 <p style="margin:0 0 10px;">My future research will focus on the following directions:</p>
                                                 <ol style="margin:0; padding-left:24px;">
@@ -61,13 +85,6 @@
                                             <p style="text-align:center">
                                                 <a href="mailto:liyanbang0077@gmail.com">Email</a>
                                             </p>
-                                        </td>
-                                        <td style="padding:2.5%;width:40%;max-width:40%">
-                                            <div id="avatar-control" class="avatar-control" role="button" tabindex="0" aria-label="播放或暂停背景音乐">
-                                                <img alt="profile photo" src="images/touxiang.png">
-                                                <img class="avatar-alt" alt="profile photo with both arms raised" src="images/touxiang-arms-up.png">
-                                                <span class="avatar-play-indicator" aria-hidden="true">Ⅱ</span>
-                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
